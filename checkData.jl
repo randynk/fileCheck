@@ -39,6 +39,27 @@ function checkString(chaine::String, fichier::String)
     word = split(word, "|")
     occurrence = 0
     for i in word
+        if uppercase(i) == uppercase(chaine) || occursin(uppercase(chaine), uppercase(i))
+            occurrence += 1
+        end
+    end
+    return occurrence
+end
+function checkWord(chaine::String, fichier::String)
+    file = open(fichier,"r")
+    word = ""
+    for i in eachline(file)
+       word = string(word, i, "|")
+    end
+    close(file)
+    word = replace(word, " "=>"|")
+    word = replace(word, ","=>"|")
+    word = replace(word, "||"=>"|")
+    word = replace(word, "|||"=>"|")
+    word = replace(word, "||||"=>"|")
+    word = split(word, "|")
+    occurrence = 0
+    for i in word
         if uppercase(i) == uppercase(chaine)
             occurrence += 1
         end
